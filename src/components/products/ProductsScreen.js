@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StyleSheet, Dimensions, Platform, Text, FlatList } from 'react-native';
+import ProductItem from './ProductItem';
+import Header from '../header/Header';
 
 import Context from '../../context/Context';
 import { sizes } from '../../resources/constants';
@@ -8,14 +10,16 @@ import { sizes } from '../../resources/constants';
 const ProductsScreen = props => {
     const { products } = useContext(Context);
 
+    console.log(props);
+
     return (
         <SafeAreaView style={styles.container}>
+            <Header {...props} />
             <FlatList
                 style={styles.container}
                 data={products}
-                renderItem={({ item }) => (
-                    <Text style={styles.item}>{item.name}</Text>
-                )}
+                renderItem={({ item }) => <ProductItem item={item} {...props} />}
+                numColumns={2}
             />
         </SafeAreaView>
     );
